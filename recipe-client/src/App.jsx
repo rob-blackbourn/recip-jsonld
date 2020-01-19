@@ -1,11 +1,12 @@
 import { hot } from 'react-hot-loader'
 import React from 'react'
-import './App.css'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import RecipeFinder from './components/finders/RecipeFinder'
 
-const message = 'Welcome to recipe-client'
 const App = () => (
   <div className='App'>
-    <h1>{message}</h1>
+    <CssBaseline />
+    <RecipeFinder />
   </div>
 )
 

@@ -9,10 +9,14 @@
     "lint": "eslint --cache --format codeframe --ext mjs,jsx,js src"
   },
   "dependencies": {
+    "@material-ui/core": "^4.8.3",
+    "@material-ui/icons": "^4.5.1",
+    "iso8601-duration": "^1.2.0",
     "prop-types": "^15",
     "react": "^16",
     "react-dom": "^16",
-    "react-hot-loader": "^4"
+    "react-hot-loader": "^4",
+    "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
     "@neutrinojs/react": "^9.0.0-rc.3",
