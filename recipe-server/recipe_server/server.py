@@ -46,7 +46,7 @@ def start_hypercorn(app: Application, app_config: Dict[str, Any]) -> None:
         serve(
             app,
             config,
-            # shutdown_trigger=shutdown_event.wait  # type: ignore
+            shutdown_trigger=shutdown_event.wait  # type: ignore
         )
     )
 

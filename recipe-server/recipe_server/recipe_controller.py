@@ -8,6 +8,7 @@ try:
 except:  # pylint: disable=bare-except
     from typing_extensions import TypedDict
 from urllib.parse import parse_qsl
+from urllib.error import HTTPError
 
 from bareasgi import (
     Application,
@@ -22,20 +23,9 @@ from bareutils import (
     text_writer
 )
 import bareutils.header as header
-from bareasgi_rest import RestHttpRouter, add_swagger_ui
+from bareasgi_rest import RestHttpRouter, add_swagger_ui, Body
 
 from .recipe_repository import RecipeRepository
-
-
-class Recipe(TypedDict):
-    """A Book
-
-    Args:
-        identifier (str): The recipe identifier
-        name (str): The name
-    """
-    identifier: int
-    name: str
 
 
 class RecipeController:
@@ -65,7 +55,7 @@ class RecipeController:
         )
         router.add_rest(
             {'GET'},
-            '/recipes/{id:int}',
+            '/recipes/{identifier:str}',
             self._read
         )
         router.add_rest(
@@ -75,21 +65,21 @@ class RecipeController:
             tags=tags
         )
         router.add_rest(
-            {'POST', 'OPTIONS'},
-            '/recipes/{id:int}',
+            {'PUT', 'OPTIONS'},
+            '/recipes',
             self._update,
             tags=tags
         )
         router.add_rest(
             {'DELETE', 'OPTIONS'},
-            '/recipes/{id:int}',
+            '/recipes/{identifier:str}',
             self._delete,
             tags=tags
         )
 
     async def _create(
             self,
-            recipe: Recipe
+            recipe: Body[Dict[str, Any]]
     ) -> str:
         """Create a recipe
 
@@ -104,7 +94,7 @@ class RecipeController:
     async def _read(
             self,
             identifier: str
-    ) -> Optional[Recipe]:
+    ) -> Dict[str, Any]:
         """Read a recipe
 
         Args:
@@ -113,13 +103,17 @@ class RecipeController:
         Returns:
             Optional[Recipe]: The recipe if found
         """
-        return await self._repository.read(identifier)
+        recipe = await self._repository.read(identifier)
+        if recipe is None:
+            raise HTTPError(None, 404, None, None, None)
+
+        return recipe
 
     async def _read_many(
             self,
             values: List[str],
             limit: int = 10
-    ) -> List[Recipe]:
+    ) -> List[Dict[str, Any]]:
         """Read recipes matching values
 
         Args:
@@ -136,7 +130,7 @@ class RecipeController:
 
     async def _update(
             self,
-            recipe: Recipe
+            recipe: Body[Dict[str, Any]]
     ) -> bool:
         """Update a recipe
 
