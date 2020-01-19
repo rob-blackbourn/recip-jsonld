@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Adhoc",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/examples/adhoc.py",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "Start server",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/recipe_server/startup.py",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        }
+    ]
+}
