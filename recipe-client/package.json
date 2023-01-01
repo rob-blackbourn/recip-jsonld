@@ -19,12 +19,12 @@
     "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
-    "@neutrinojs/react": "^9.0.0-rc.3",
-    "@neutrinojs/standardjs": "^9.0.0-rc.3",
+    "@neutrinojs/react": "^9.5.0",
+    "@neutrinojs/standardjs": "^9.5.0",
     "eslint": "^5",
     "neutrino": "^9.0.0-rc.3",
-    "webpack": "^4",
-    "webpack-cli": "^3",
+    "webpack": "^5",
+    "webpack-cli": "^5",
     "webpack-dev-server": "^3"
   }
 }
